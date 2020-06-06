@@ -23,7 +23,7 @@ class AptoDAO {
         $create->execute();
         return true;
     }
-    public function readId(int $id) {
+    public function readById(int $id) {
         $sqlReadId = "SELECT * FROM apto WHERE idApto = :id";
         $readId = $this->conexao->prepare($sqlReadId);
         $readId->bindValue(':id', $id);
@@ -31,8 +31,8 @@ class AptoDAO {
         $apto = $readId->fetch(PDO::FETCH_OBJ);
         return $apto;
     }
-    public function readNumber(string $numero) {
-        $sqlReadName = "SELECT * FROM apto WHERE UPPER(numero) LIKE :numero";
+    public function readByNumber(string $numero) {
+        $sqlReadName = "SELECT * FROM apto WHERE LIKE :numero";
         $readNumber = $this->conexao->prepare($sqlReadName);
         $readNumber->bindValue(':numero', "$numero%");
         $readNumber->execute();

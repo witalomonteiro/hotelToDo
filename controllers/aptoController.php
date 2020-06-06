@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $path = '/xampp/htdocs/Lab/hotelToDo';
 require_once $path . '/models/TipoAptoDAO.php';  
@@ -11,7 +12,7 @@ $aptoDAO = new AptoDAO();
 
 // READ - Tipo Apto
 $tiposAptos = $tipoAptoDAO->list();
-
+    
 // CREATE   
 if (isset($_POST['create'])) {
     if ($_POST['numero'] != '') {
@@ -29,14 +30,14 @@ if (isset($_POST['create'])) {
 
 // READ
 if (isset($_POST['read'])) {
-    $aptos = $aptoDAO->readNumber($_POST['numero']);
+    $aptos = $aptoDAO->readByNumber($_POST['numero']);
 } else {
     $aptos = $aptoDAO->list();
 }
 
 // UPDATE
 if (isset($_POST['select'])) {
-    $apto = $aptoDAO->readId($_POST['select']);
+    $apto = $aptoDAO->readById($_POST['select']);
 }
 if (isset($_POST['update'])) {
     if ($_POST['numero'] != '') {

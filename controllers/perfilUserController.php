@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $path = '/xampp/htdocs/Lab/hotelToDo';
 require_once $path . '/models/PerfilUser.php';
@@ -15,20 +16,19 @@ if (isset($_POST['create'])) {
         $perfilUser->setStatus($_POST['status']);
         $perfilUserDAO->create($perfilUser);
         header('Location: http://localhost/Lab/hotelToDo/views/readPerfilUser.php');
-    }
-    
+    }  
 }
 
 // READ
 if (isset($_POST['read'])) {
-    $perfisUsers = $perfilUserDAO->readName($_POST['nome']);
+    $perfisUsers = $perfilUserDAO->readByName($_POST['nome']);
 } else {
     $perfisUsers = $perfilUserDAO->list();
 }
 
 // UPDATE
 if (isset($_POST['select'])) {
-    $perfilUser = $perfilUserDAO->readId($_POST['select']);
+    $perfilUser = $perfilUserDAO->readById($_POST['select']);
 }
 if (isset($_POST['update'])) {
     if ($_POST['nome'] != '') {
@@ -44,7 +44,7 @@ if (isset($_POST['update'])) {
 
 // DELETE
 if (isset($_POST['confirm'])) {
-    $perfilUser = $perfilUserDAO->readId($_POST['confirm']);
+    $perfilUser = $perfilUserDAO->readById($_POST['confirm']);
 }
 if (isset($_POST['delete'])) {
     $perfilUserDAO->delete($_POST['id']);

@@ -1,10 +1,11 @@
 <?php
+session_start();
 
 $path = '/xampp/htdocs/Lab/hotelToDo';
 require_once $path . '/models/LoginDAO.php';
 require_once $path . '/models/User.php';
 
-session_start();
+
 
 if (isset($_POST['entrar'])) {
     $login = new LoginDAO();

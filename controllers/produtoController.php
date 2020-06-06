@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $path = '/xampp/htdocs/Lab/hotelToDo';
 require_once $path . '/models/Produto.php';

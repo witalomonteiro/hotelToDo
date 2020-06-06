@@ -2,8 +2,9 @@
 
 $path = '/xampp/htdocs/Lab/hotelToDo';
 require_once $path . '/controllers/tipoAptoController.php';
-require_once $path . '/hellpers/hellper.php'; 
+require_once $path . '/hellpers/hellper.php';
 
+echo var_dump($_SESSION); 
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +51,7 @@ require_once $path . '/hellpers/hellper.php';
                         <td><?php echo $tipoApto->idTipoApto; ?></td>
                         <td><?php echo $tipoApto->nome; ?></td>
                         <td><?php echo $tipoApto->valor; ?></td>
-                        <td><?php echo translate($tipoApto->status); ?></td>
+                        <td><?php echo translateStatus($tipoApto->status); ?></td>
 
                         <?php if (isset($_POST['confirm'])) { ?>
                             <td><button type="submit" value="delete" name="delete">Delete</button></td>

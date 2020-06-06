@@ -1,8 +1,9 @@
 <?php
 
 $path = '/xampp/htdocs/Lab/hotelToDo';
-require_once $path . '/controllers/loginController.php';
+require_once $path . '/controllers/login.php';
 
+echo var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>

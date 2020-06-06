@@ -1,9 +1,10 @@
 <?php
 
-    $path = '/xampp/htdocs/Lab/hotelToDo';
-    require_once $path . '/controllers/servicoController.php';
-    require_once $path . '/hellpers/hellper.php'; 
+$path = '/xampp/htdocs/Lab/hotelToDo';
+require_once $path . '/controllers/servicoController.php';
+require_once $path . '/hellpers/hellper.php';
 
+echo var_dump($_SESSION); 
 ?>
 
 <!DOCTYPE html>
@@ -12,22 +13,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/normalize.css">
-    <title> Read Servicos </title>
+    <title> Read Serviços </title>
 </head>
 <body>
     <nav>
         <ul>
-            <li>
-                <a href="http://localhost/Lab/hotelToDo/views/main.php" class="main-button"> Main </a>
-            </li>
-            <li>
-                <a href="http://localhost/Lab/hotelToDo/views/createServico.php"> Create </a>
-            </li>
+            <li><a href="http://localhost/Lab/hotelToDo/views/main.php" class="main-button">Main</a></li>
+            <li><a href="http://localhost/Lab/hotelToDo/views/createServico.php">Create</a></li>
         </ul>
     </nav>
 <form method="post">
     <fieldset>
-        <legend> Read servico </legend>
+        <legend> Buscar Serviços </legend>
         <input type="hidden" value="<?php if (isset($_POST['select']) || isset($_POST['confirm'])) {  echo $servico->idServico; } ?>" name="id">
         <label for="nome"> Nome <input type="text" value="<?php if (isset($_POST['select'])) {  echo $servico->nome; } ?>" name="nome"></label>
         <?php if (isset($_POST['select'])) { ?>
@@ -40,7 +37,7 @@
         <?php } ?>
     </fieldset>
     <fieldset>
-        <legend> Results </legend>
+        <legend> Resultadoss </legend>
         <table>
             <tr>
                 <th> Id </th>
@@ -51,32 +48,16 @@
             <?php if (isset($servicos)) { ?>
                 <?php foreach($servicos as $servico) { ?>
                     <tr>
-                        <td>
-                            <?php echo $servico->idServico; ?>
-                        </td>
-                        <td>
-                            <?php echo $servico->nome; ?>
-                        <td>
-                            <?php echo $servico->valor; ?>
-                        </td>
-                        <td>
-                            <?php echo translate($servico->status); ?>
-                        </td>
-
+                        <td><?php echo $servico->idServico; ?></td>
+                        <td><?php echo $servico->nome; ?></td>
+                        <td><?php echo $servico->valor; ?></td>
+                        <td><?php echo translateStatus($servico->status); ?></td>
                         <?php if (isset($_POST['confirm'])) { ?>
-                            <td>
-                                <button type="submit" value="delete" name="delete"> Delete </button>
-                            </td>
-                            <td>
-                                <button type="submit" value="" name=""> X </button>
-                            </td>
+                            <td><button type="submit" value="delete" name="delete"> Delete </button></td>
+                            <td><button type="submit" value="" name=""> X </button></td>
                         <?php } else { ?>
-                            <td>
-                                <button type="submit" value="<?php echo $servico->idServico; ?>" name="select" > Editar </button>
-                            </td>
-                            <td>
-                                <button type="submit" value="<?php echo $servico->idServico; ?>" name="confirm" > Excluir </button>
-                            </td>
+                            <td><button type="submit" value="<?php echo $servico->idServico; ?>" name="select" > Editar </button></td>
+                            <td><button type="submit" value="<?php echo $servico->idServico; ?>" name="confirm" > Excluir </button></td>
                         <?php } ?>
                     </tr>
                 <?php } ?>

@@ -6,8 +6,7 @@ require_once $path . '/models/PerfilUserDAO.php';
 require_once $path . '/models/TipoApto.php';
 require_once $path . '/models/TipoAptoDAO.php';
 
-
-function translate(int $status) {
+function translateStatus(int $status) {
     if ($status == 1) {
         $translation = "Ativo";
     } else {
@@ -15,21 +14,32 @@ function translate(int $status) {
     }
     return $translation;
 }
-
-function translatePerfil(int $perfil) {
+function translateStatusReserva(int $status) {
+    switch ($status) {
+        case 1: 
+            $translate = "Ativa";
+        break;
+        case 0: 
+            $translate = "Cancelada";
+        break;
+        case 2: 
+            $translate = "Checkin Realizado";
+        break;
+    }
+    return $translate;
+}
+function translatePerfilUser(int $perfil) {
     $perfilUser = new PerfilUser();
     $perfilUserDAO = new PerfilUserDAO();
-    $perfilUser = $perfilUserDAO->readId($perfil);
-    return $perfilUser;
+    $perfilUser = $perfilUserDAO->readById($perfil);
+    return $perfilUser->nome;
 }
-
-function translateTipo(int $tipo) {
+function translateTipoApto(int $tipo) {
     $tipoApto = new TipoApto();
     $tipoAptoDAO = new TipoAptoDAO();
-    $tipoApto = $tipoAptoDAO->readId($tipo);
-    return $tipoApto;
+    $tipoApto = $tipoAptoDAO->readById($tipo);
+    return $tipoApto->nome;
 }
-
 function validadeIdUser(int $idUser) {
     $perfilUser = new PerfilUser();
 
@@ -42,6 +52,14 @@ function validadeIdUser(int $idUser) {
             # code...
             break;
     }
+}
+function translateDateForDataBase(string $data) {
+    $dateObject = DateTime::createFromFormat('d/m/Y', $data);
+    return $dateObject->format('Y-m-d');
+}
+function translateDateForView(string $data) {
+    $dateObject = DateTime::createFromFormat('Y-m-d', $data);
+    return $dateObject->format('d/m/Y');
 }
 
 ?>

@@ -1,5 +1,6 @@
 <?php
 session_start();
+echo var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +25,7 @@ session_start();
             </a>
         </li>
         <li>
-            <a href="http://localhost/Lab/hotelToDo/views/readTipoApto. php">
+            <a href="http://localhost/Lab/hotelToDo/views/readTipoApto.php">
                 <?php if ($_SESSION['idPerfilUser'] == 1 || $_SESSION['idPerfilUser'] == 2) { echo "Tipo Apto"; } ?>
             </a>
         </li>
@@ -42,6 +43,16 @@ session_start();
             <a href="http://localhost/Lab/hotelToDo/views/readServico.php">
                 <?php if ($_SESSION['idPerfilUser'] == 1 || $_SESSION['idPerfilUser'] == 2) { echo "Serviço"; } ?>
             </a> 
+        </li>
+        <li>
+            <a href="http://localhost/Lab/hotelToDo/views/readReserva.php">
+                <?php if (isset($_SESSION['idPerfilUser'])) { echo "Reservas"; } ?>
+            </a>
+        </li>
+        <li>
+            <a href="http://localhost/Lab/hotelToDo/controllers/logout.php">
+                <?php if (isset($_SESSION['idPerfilUser'])) { echo "Sair"; } ?>
+            </a>
         </li>
     </ul>
 </nav>

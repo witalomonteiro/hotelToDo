@@ -1,8 +1,6 @@
 <?php
-
-    $path = '/xampp/htdocs/Lab/hotelToDo';
-    require_once $path . '/controllers/servicoController.php';
-
+$path = '/xampp/htdocs/Lab/hotelToDo';
+require_once $path . '/controllers/servicoController.php';
 ?>
 
 <!DOCTYPE html>

@@ -1,65 +1,54 @@
 <?php
+session_start();
 
 $path = '/xampp/htdocs/Lab/hotelToDo';
-require_once $path . '/models/TipoAptoDAO.php';  
-//require_once $path . '/models/Reserva.php';   
-//require_once $path . '/models/ReservaDAO.php';   
+require $path . '/models/Reserva.php';
+require_once $path . '/models/ReservaDAO.php';
+require_once $path . '/models/TipoAptoDAO.php';
 
-$tipoAptoDAO= new TipoAptoDAO();
 $reserva = new Reserva();
-$reservaDAO  = new ReservaDAO();
+$reservaDAO = new ReservaDAO();
+$tipoAptoDAO = new TipoAptoDAO();
 
-// READ - Tipo Apto
+// LIST - Tipos Aptos
 $tiposAptos = $tipoAptoDAO->list();
 
-// CREATE   
-if (isset($_POST['buscar'])) {
-    if ($_POST['numero'] != '') {
-        if (!isset($_POST['status'])) { $_POST['status'] = 0; }
+// CREATE
+if (isset($_POST['create'])) {
+    if ($_POST['nome'] != '' && $_POST['entrada'] != '' && $_POST['saida'] != ''&& $_POST['tipoApto'] != '') {
+        $reserva->setNome($_POST['nome']);
+        $reserva->setEntrada($_POST['entrada']);
+        $reserva->setSaida($_POST['saida']);
+        $reserva->setIdTipoApto($_POST['tipoApto']);
+        $reserva->setStatus(1);
+        $reservaDAO->create($reserva);
 
-        $apto->setIdTipoApto($_POST['idTipoApto']);
-        $apto->setNumero($_POST['numero']);
-        $apto->setStatus($_POST['status']);
-        $aptoDAO->create($apto);
-
-        header('Location: http://localhost/Lab/hotelToDo/views/readReserva.php');
+        header('Location: http://localhost/Lab/hotelToDo/views/createReserva.php');
     }
-
 }
-/*
+
 // READ
 if (isset($_POST['read'])) {
-    $aptos = $aptoDAO->readNumber($_POST['numero']);
+    if ($_POST['nome'] != "") {
+        $reservas = $reservaDAO->readByName($_POST['nome']);
+    } elseif ($_POST['entrada'] != "") {
+        $reservas = $reservaDAO->readByDate($_POST['entrada']);
+    } else {
+        $reservas = $reservaDAO->list();
+    }
 } else {
-    $aptos = $aptoDAO->list();
+    $reservas = $reservaDAO->list();
 }
 
 // UPDATE
-if (isset($_POST['select'])) {
-    $apto = $aptoDAO->readId($_POST['select']);
+if (isset($_POST['cancelar'])) {
+    $reserva = $reservaDAO->readById($_POST['cancelar']);
 }
-if (isset($_POST['update'])) {
-    if ($_POST['numero'] != '') {
-        if (!isset($_POST['status'])) { $_POST['status'] = 0; }
-        
-        $apto = new Apto();
-        $apto->setIdApto($_POST['id']);
-        $apto->setIdTipoApto($_POST['idTipoApto']);
-        $apto->setNumero($_POST['numero']);
-        $apto->setStatus($_POST['status']);
-        $aptoDAO->update($apto->getIdApto(), $apto);
-
-        header('Location: http://localhost/Lab/hotelToDo/views/readApto.php');
-    }
+if (isset($_POST['confirmar'])) {
+    $reserva->setStatus(0);
+    $reservaDAO->updateStatus($_POST['id'], $reserva);
+    header('Location: http://localhost/Lab/hotelToDo/views/readReserva.php');
 }
 
-// DELETE
-if (isset($_POST['confirm'])) {
-    $apto = $aptoDAO->readId($_POST['confirm']);
-}
-if (isset($_POST['delete'])) {
-    $aptoDAO->delete($_POST['id']);
-    header('Location: http://localhost/Lab/hotelToDo/views/readApto.php');
-}
-*/
+
 ?>

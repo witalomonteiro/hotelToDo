@@ -4,6 +4,7 @@ $path = '/xampp/htdocs/Lab/hotelToDo';
 require_once $path . '/controllers/userController.php';
 require_once $path . '/hellpers/hellper.php'; 
 
+echo var_dump($_SESSION); 
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +46,7 @@ require_once $path . '/hellpers/hellper.php';
             </label>
             <label for="status">Ativo
                 <input type="checkbox" name="status" value="1">
-            </label></br>
+            </label>
                 <button type="submit" value="update" name="update">Update</button>
                 <button type="submit" value="" name="">X</button>
         <?php } else { ?>
@@ -70,8 +71,8 @@ require_once $path . '/hellpers/hellper.php';
                         <td><?php echo $user->nome; ?></td>
                         <td><?php echo $user->email; ?></td>
                         <td><?php echo $user->senha; ?></td>
-                        <td><?php $perfil = translatePerfil($user->idPerfilUser); echo $perfil->nome; ?></td>
-                        <td><?php echo translate($user->status); ?></td>
+                        <td><?php echo translatePerfilUser($user->idPerfilUser); ?></td>
+                        <td><?php echo translateStatus($user->status); ?></td>
 
                         <?php if (isset($_POST['confirm'])) { ?>
                             <td><button type="submit" value="delete" name="delete">Delete</button></td>

@@ -4,6 +4,7 @@ $path = '/xampp/htdocs/Lab/hotelToDo';
 require_once $path . '/controllers/perfilUserController.php';
 require_once $path . '/hellpers/hellper.php'; 
 
+echo var_dump($_SESSION); 
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +48,7 @@ require_once $path . '/hellpers/hellper.php';
                     <tr>
                         <td><?php echo $perfilUser->idPerfilUser; ?></td>
                         <td><?php echo $perfilUser->nome; ?></td>
-                        <td><?php echo translate($perfilUser->status); ?></td>
+                        <td><?php echo translateStatus($perfilUser->status); ?></td>
 
                         <?php if (isset($_POST['confirm'])) { ?>
                             <td><button type="submit" value="delete" name="delete">Delete</button></td>

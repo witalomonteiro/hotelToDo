@@ -3,8 +3,8 @@
 class Reserva {
 
     private $idReserva;
-    private $idApto;
-    private $idUser;
+    private $idTipoApto;
+    private $nome;
     private $entrada;
     private $saida;
     private $status;
@@ -15,20 +15,18 @@ class Reserva {
     public function getId(): int {
         return $this->idReserva;
     }
-    public function setIdApto(int $idApto) {
-        $this->idApto = $idApto;
+    public function setIdTipoApto(int $idTipoApto) {
+        $this->idTipoApto = $idTipoApto;
     }
-    public function getIdApto(): int {
-        return $this->idApto;
+    public function getIdTipoApto(): int {
+        return $this->idTipoApto;
     }
-
-    public function setIdUser(int $idUser) {
-        $this->idUser = $idUser;
+    public function setNome(string $nome) {
+        $this->nome = $nome;
     }
-    public function getIdUser(): int {
-        return $this->idUser;
+    public function getNome(): string {
+        return $this->nome;
     }
-
     public function setEntrada(string $entrada) {
         $this->entrada = $entrada;
     }

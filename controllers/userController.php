@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $path = '/xampp/htdocs/Lab/hotelToDo';
 require_once $path . '/models/PerfilUserDAO.php';  
@@ -31,15 +32,14 @@ if (isset($_POST['create'])) {
 
 // READ
 if (isset($_POST['read'])) {
-    $users = $userDAO->readName($_POST['nome']);
-    
+    $users = $userDAO->readByName($_POST['nome']);
 } else {
     $users = $userDAO->list();
 }
 
 // UPDATE
 if (isset($_POST['select'])) {
-    $user = $userDAO->readId($_POST['select']);
+    $user = $userDAO->readById($_POST['select']);
 }
 if (isset($_POST['update'])) {
     if ($_POST['nome'] != '') {
@@ -60,7 +60,7 @@ if (isset($_POST['update'])) {
 
 // DELETE
 if (isset($_POST['confirm'])) {
-    $user = $userDAO->readId($_POST['confirm']);
+    $user = $userDAO->readById($_POST['confirm']);
 }
 if (isset($_POST['delete'])) {
     $userDAO->delete($_POST['id']);

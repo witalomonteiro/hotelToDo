@@ -26,7 +26,7 @@ class UserDAO {
         return true;
     }
     
-    public function readId(int $id) {
+    public function readById(int $id) {
         $sqlReadId = "SELECT * FROM user WHERE idUser = :id";
         $readId = $this->conexao->prepare($sqlReadId);
         $readId->bindValue(':id', $id);
@@ -34,7 +34,7 @@ class UserDAO {
         $User = $readId->fetch(PDO::FETCH_OBJ);
         return $User;
     }
-    public function readName(string $nome) {
+    public function readByName(string $nome) {
         $sqlReadName = "SELECT * FROM user WHERE UPPER(nome) LIKE :nome";
         $readName = $this->conexao->prepare($sqlReadName);
         $readName->bindValue(':nome', "%$nome%");

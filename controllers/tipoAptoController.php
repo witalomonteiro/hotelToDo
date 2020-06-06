@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $path = '/xampp/htdocs/Lab/hotelToDo';
 require_once $path . '/models/TipoApto.php';
@@ -16,20 +17,19 @@ if (isset($_POST['create'])) {
         $tipoApto->setStatus($_POST['status']);
         $tipoAptoDAO->create($tipoApto);
         header('Location: http://localhost/Lab/hotelToDo/views/readTipoApto.php');
-    }
-    
+    } 
 }
 
 // READ
 if (isset($_POST['read'])) {
-    $tiposAptos = $tipoAptoDAO->readName($_POST['nome']);
+    $tiposAptos = $tipoAptoDAO->readByName($_POST['nome']);
 } else {
     $tiposAptos = $tipoAptoDAO->list();
 }
 
 // UPDATE
 if (isset($_POST['select'])) {
-    $tipoApto = $tipoAptoDAO->readId($_POST['select']);
+    $tipoApto = $tipoAptoDAO->readById($_POST['select']);
 }
 if (isset($_POST['update'])) {
     if ($_POST['nome'] != '') {
@@ -49,7 +49,7 @@ if (isset($_POST['update'])) {
 
 // DELETE
 if (isset($_POST['confirm'])) {
-    $tipoApto = $tipoAptoDAO->readId($_POST['confirm']);
+    $tipoApto = $tipoAptoDAO->readById($_POST['confirm']);
 }
 if (isset($_POST['delete'])) {
     $tipoAptoDAO->delete($_POST['id']);
