@@ -38,8 +38,8 @@ if (isset($_POST['read'])) {
 }
 
 // UPDATE
-if (isset($_POST['select'])) {
-    $user = $userDAO->readById($_POST['select']);
+if (isset($_POST['selectUpdate'])) {
+    $user = $userDAO->readById($_POST['selectUpdate']);
 }
 if (isset($_POST['update'])) {
     if ($_POST['nome'] != '') {
@@ -59,8 +59,8 @@ if (isset($_POST['update'])) {
 }
 
 // DELETE
-if (isset($_POST['confirm'])) {
-    $user = $userDAO->readById($_POST['confirm']);
+if (isset($_POST['selectDelete'])) {
+    $user = $userDAO->readById($_POST['selectDelete']);
 }
 if (isset($_POST['delete'])) {
     $userDAO->delete($_POST['id']);

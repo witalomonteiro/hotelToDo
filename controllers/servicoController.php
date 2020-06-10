@@ -11,7 +11,8 @@ $servicoDAO = new ServicoDAO();
 // CREATE
 if (isset($_POST['create'])) {
     if ($_POST['nome'] != '') {
-        if (!isset($_POST['status'])) { $_POST['status'] = 0; }
+        if ($_POST['valor'] == "") { $_POST['valor'] = 0; }
+        if ($_POST['status'] == "") { $_POST['status'] = 0; }
         $servico->setNome($_POST['nome']);
         $servico->setValor($_POST['valor']);
         $servico->setStatus($_POST['status']);
@@ -29,15 +30,13 @@ if (isset($_POST['read'])) {
 }
 
 // UPDATE
-if (isset($_POST['select'])) {
-    $servico = $servicoDAO->readId($_POST['select']);
+if (isset($_POST['selectUpdatde'])) {
+    $servico = $servicoDAO->readId($_POST['selectUpdate']);
 }
 if (isset($_POST['update'])) {
     if ($_POST['nome'] != '') {
-        if (!isset($_POST['valor']) || !isset($_POST['status'])) {
-            $_POST['valor'] = 0;
-            $_POST['status'] = 0;
-        }
+        if ($_POST['valor'] == "") { $_POST['valor'] = 0; }
+        if ($_POST['status'] == "") { $_POST['status'] = 0; }
         $servico = new servico();
         $servico->setId($_POST['id']);
         $servico->setNome($_POST['nome']);
@@ -49,8 +48,8 @@ if (isset($_POST['update'])) {
 }
 
 // DELETE
-if (isset($_POST['confirm'])) {
-    $servico = $servicoDAO->readId($_POST['confirm']);
+if (isset($_POST['selectDelete'])) {
+    $servico = $servicoDAO->readId($_POST['selectDelete']);
 }
 if (isset($_POST['delete'])) {
     $servicoDAO->delete($_POST['id']);

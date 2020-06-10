@@ -32,31 +32,29 @@ if (isset($_POST['create'])) {
 if (isset($_POST['read'])) {
     $aptos = $aptoDAO->readByNumber($_POST['numero']);
 } else {
-    $aptos = $aptoDAO->list();
+     $aptos = $aptoDAO->list();
 }
 
 // UPDATE
-if (isset($_POST['select'])) {
-    $apto = $aptoDAO->readById($_POST['select']);
+if (isset($_POST['selectUpdate'])) {
+    $apto = $aptoDAO->readById($_POST['selectUpdate']);
 }
 if (isset($_POST['update'])) {
     if ($_POST['numero'] != '') {
-        if (!isset($_POST['status'])) { $_POST['status'] = 0; }
-        
+        if (!isset($_POST['status'])) { $_POST['status'] = 0; }    
         $apto = new Apto();
         $apto->setIdApto($_POST['id']);
         $apto->setIdTipoApto($_POST['idTipoApto']);
         $apto->setNumero($_POST['numero']);
         $apto->setStatus($_POST['status']);
         $aptoDAO->update($apto->getIdApto(), $apto);
-
         header('Location: http://localhost/Lab/hotelToDo/views/readApto.php');
     }
 }
 
 // DELETE
-if (isset($_POST['confirm'])) {
-    $apto = $aptoDAO->readId($_POST['confirm']);
+if (isset($_POST['selectDelete'])) {
+    $apto = $aptoDAO->readById($_POST['selectDelete']);
 }
 if (isset($_POST['delete'])) {
     $aptoDAO->delete($_POST['id']);

@@ -13,32 +13,42 @@ echo var_dump($_SESSION);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/normalize.css">
-    <title>Read Perfis Users</title>
+    <title>Consultar User</title>
 </head>
 <body>
 <nav>
     <ul>
         <li><a href="http://localhost/Lab/hotelToDo/views/main.php" class="main-button">Main</a></li>
-        <li><a href="http://localhost/Lab/hotelToDo/views/createUser.php">Create</a></li>
+        <li><a href="http://localhost/Lab/hotelToDo/views/createUser.php">Cadastrar User</a></li>
     </ul>
 </nav>
 <form method="post">
     <fieldset>
-        <legend>Read Users</legend>
-        <input type="hidden" name="id" value="<?php if (isset($_POST['select']) || isset($_POST['confirm'])) {  echo $user->idUser; } ?>">
-        <label for="nome">Nome <input type="text" name="nome" size="25" value="<?php if (isset($_POST['select'])) {  echo $user->nome; } ?>"></label><br />
-        <?php if (isset($_POST['select'])) { ?>
-            <label for="email">Email <input type="email" name="email" size="25" value="<?php if (isset($_POST['select'])) {  echo $user->email; } ?>"></label><br />
-            <label for="senha">Senha <input type="password" name="senha" size="25" value="<?php if (isset($_POST['select'])) {  echo $user->senha; } ?>"></label><br />
+        <legend>Consultar User</legend>
+        <input type="hidden" name="id" value="<?php if (isset($_POST['selectUpdate']) || isset($_POST['selectDelete'])) {  echo $user->idUser; } ?>">
+        <label for="nome">Nome 
+            <input type="text" name="nome" value="<?php if (isset($_POST['selectUpdate'])) {  echo $user->nome; } ?>">
+        </label><br />
+        <?php if (isset($_POST['selectUpdate'])) { ?>
+            <label for="email">Email 
+                <input type="email" name="email" size="25" value="<?php if (isset($_POST['selectUpdate'])) {  echo $user->email; } ?>">
+            </label><br />
+            <label for="senha">Senha 
+                <input type="password" name="senha" size="25" value="<?php if (isset($_POST['selectUpdate'])) {  echo $user->senha; } ?>">
+            </label><br />
             <label for="perfilUser">Perfil 
                 <select name="idPerfilUser">
                     <option value=""></option>
                     <?php if (isset($perfisUsers)) { ?>
                         <?php foreach($perfisUsers as $perfilUser) { ?>
                             <?php if ($perfilUser->status == 1 && $perfilUser->idPerfilUser == $user->idPerfilUser) { ?>
-                                    <option value="<?php echo $perfilUser->idPerfilUser; ?>" selected><?php echo $perfilUser->nome; ?></option>
+                                    <option value="<?php echo $perfilUser->idPerfilUser; ?>" selected>
+                                        <?php echo $perfilUser->nome; ?>
+                                    </option>
                                 <?php } else { ?>
-                                    <option value="<?php echo $perfilUser->idPerfilUser; ?>"><?php echo $perfilUser->nome; ?></option>
+                                    <option value="<?php echo $perfilUser->idPerfilUser; ?>">
+                                        <?php echo $perfilUser->nome; ?>
+                                    </option>
                             <?php } ?>
                         <?php } ?>
                     <?php } ?>
@@ -53,39 +63,41 @@ echo var_dump($_SESSION);
             <button type="submit" value="read" name="read">Read</button>
         <?php } ?>
     </fieldset>
-    <fieldset>
-        <legend>Resultados</legend>
-        <table>
-            <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Senha</th>
-                <th>Perfil</th>
-                <th>Status</th>
-            </tr>
-            <?php if (isset($users)) { ?>
-                <?php foreach($users as $user) { ?>
-                    <tr>
-                        <td><?php echo $user->idUser; ?></td>
-                        <td><?php echo $user->nome; ?></td>
-                        <td><?php echo $user->email; ?></td>
-                        <td><?php echo $user->senha; ?></td>
-                        <td><?php echo translatePerfilUser($user->idPerfilUser); ?></td>
-                        <td><?php echo translateStatus($user->status); ?></td>
+    <?php if (!isset($_POST['selectUpdate'])) { ?>
+        <fieldset>
+            <legend>Resultados</legend>
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Senha</th>
+                    <th>Perfil</th>
+                    <th>Status</th>
+                </tr>
+                <?php if (isset($users)) { ?>
+                    <?php foreach($users as $user) { ?>
+                        <tr>
+                            <td><?php echo $user->idUser; ?></td>
+                            <td><?php echo $user->nome; ?></td>
+                            <td><?php echo $user->email; ?></td>
+                            <td><?php echo $user->senha; ?></td>
+                            <td><?php echo translatePerfilUser($user->idPerfilUser); ?></td>
+                            <td><?php echo translateStatus($user->status); ?></td>
 
-                        <?php if (isset($_POST['confirm'])) { ?>
-                            <td><button type="submit" value="delete" name="delete">Delete</button></td>
-                            <td><button type="submit" value="" name="">X</button></td>
-                        <?php } else { ?>
-                            <td><button type="submit" value="<?php echo $user->idUser; ?>" name="select" >Editar</button></td>
-                            <td><button type="submit" value="<?php echo $user->idUser; ?>" name="confirm" >Excluir</button></td>
-                        <?php } ?>
-                    </tr>
+                            <?php if (isset($_POST['selectDelete']) && $_POST['selectDelete'] == $user->idUser) { ?>
+                                <td><button type="submit" value="delete" name="delete">Delete</button></td>
+                                <td><button type="submit" value="" name="">X</button></td>
+                            <?php } else { ?>
+                                <td><button type="submit" value="<?php echo $user->idUser; ?>" name="selectUpdate" >Editar</button></td>
+                                <td><button type="submit" value="<?php echo $user->idUser; ?>" name="selectDelete" >Excluir</button></td>
+                            <?php } ?>
+                        </tr>
+                    <?php } ?>
                 <?php } ?>
-            <?php } ?>
-        </table>
-    </fieldset>
+            </table>
+        </fieldset>
+    <?php } ?>
 </form>
 </body>
 </html>

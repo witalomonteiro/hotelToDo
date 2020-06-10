@@ -22,33 +22,40 @@ if (isset($_POST['create'])) {
         $reserva->setIdTipoApto($_POST['tipoApto']);
         $reserva->setStatus(1);
         $reservaDAO->create($reserva);
-
-        header('Location: http://localhost/Lab/hotelToDo/views/createReserva.php');
+        header('Location: http://localhost/Lab/hotelToDo/views/readReserva.php');
     }
 }
 
 // READ
-if (isset($_POST['read'])) {
+if (isset($_POST['read']) && $_POST['read'] != "") {
     if ($_POST['nome'] != "") {
         $reservas = $reservaDAO->readByName($_POST['nome']);
     } elseif ($_POST['entrada'] != "") {
         $reservas = $reservaDAO->readByDate($_POST['entrada']);
-    } else {
-        $reservas = $reservaDAO->list();
-    }
+    } 
 } else {
     $reservas = $reservaDAO->list();
 }
 
-// UPDATE
-if (isset($_POST['cancelar'])) {
-    $reserva = $reservaDAO->readById($_POST['cancelar']);
+// CANCEL
+if (isset($_POST['selectCancel'])) {
+    $reserva = $reservaDAO->readById($_POST['selectCancel']);
 }
-if (isset($_POST['confirmar'])) {
+if (isset($_POST['cancel'])) {
     $reserva->setStatus(0);
     $reservaDAO->updateStatus($_POST['id'], $reserva);
     header('Location: http://localhost/Lab/hotelToDo/views/readReserva.php');
 }
 
+// CHECKIN
+if (isset($_POST['selectCheckin'])) {
+    $reserva = $reservaDAO->readById($_POST['selectCheckin']);
+}
+if (isset($_POST['checkin'])) {
+    $reserva->setStatus(2);
+    $reservaDAO->updateStatus($_POST['id'], $reserva);
+    header('Location: http://localhost/Lab/hotelToDo/views/createHospedagem.php?idReserva='. $_POST['id']);
+    
+}
 
 ?>

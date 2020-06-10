@@ -27,8 +27,8 @@ if (isset($_POST['read'])) {
 }
 
 // UPDATE
-if (isset($_POST['select'])) {
-    $perfilUser = $perfilUserDAO->readById($_POST['select']);
+if (isset($_POST['selectUpdate'])) {
+    $perfilUser = $perfilUserDAO->readById($_POST['selectUpdate']);
 }
 if (isset($_POST['update'])) {
     if ($_POST['nome'] != '') {
@@ -43,8 +43,8 @@ if (isset($_POST['update'])) {
 }
 
 // DELETE
-if (isset($_POST['confirm'])) {
-    $perfilUser = $perfilUserDAO->readById($_POST['confirm']);
+if (isset($_POST['selectDelete'])) {
+    $perfilUser = $perfilUserDAO->readById($_POST['selectDelete']);
 }
 if (isset($_POST['delete'])) {
     $perfilUserDAO->delete($_POST['id']);

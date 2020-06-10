@@ -11,7 +11,8 @@ $tipoAptoDAO = new TipoAptoDAO();
 // CREATE
 if (isset($_POST['create'])) {
     if ($_POST['nome'] != '') {
-        if (!isset($_POST['status'])) { $_POST['status'] = 0; }
+        if ($_POST['valor'] == "") { $_POST['valor'] = 0; }
+        if ($_POST['status'] == "") { $_POST['status'] = 0; }
         $tipoApto->setNome($_POST['nome']);
         $tipoApto->setValor($_POST['valor']);
         $tipoApto->setStatus($_POST['status']);
@@ -28,15 +29,13 @@ if (isset($_POST['read'])) {
 }
 
 // UPDATE
-if (isset($_POST['select'])) {
-    $tipoApto = $tipoAptoDAO->readById($_POST['select']);
+if (isset($_POST['selectUpdate'])) {
+    $tipoApto = $tipoAptoDAO->readById($_POST['selectUpdate']);
 }
 if (isset($_POST['update'])) {
     if ($_POST['nome'] != '') {
-        if (!isset($_POST['valor']) || !isset($_POST['status'])) {
-            $_POST['valor'] = 0;
-            $_POST['status'] = 0;
-        }
+        if ($_POST['valor'] == "") { $_POST['valor'] = 0; }
+        if ($_POST['status'] == "") { $_POST['status'] = 0; }
         $tipoApto = new TipoApto();
         $tipoApto->setId($_POST['id']);
         $tipoApto->setNome($_POST['nome']);
@@ -48,8 +47,8 @@ if (isset($_POST['update'])) {
 }
 
 // DELETE
-if (isset($_POST['confirm'])) {
-    $tipoApto = $tipoAptoDAO->readById($_POST['confirm']);
+if (isset($_POST['selectDelete'])) {
+    $tipoApto = $tipoAptoDAO->readById($_POST['selectDelete']);
 }
 if (isset($_POST['delete'])) {
     $tipoAptoDAO->delete($_POST['id']);

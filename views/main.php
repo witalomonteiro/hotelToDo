@@ -46,7 +46,12 @@ echo var_dump($_SESSION);
         </li>
         <li>
             <a href="http://localhost/Lab/hotelToDo/views/readReserva.php">
-                <?php if (isset($_SESSION['idPerfilUser'])) { echo "Reservas"; } ?>
+                <?php if (isset($_SESSION['idPerfilUser'])) { echo "Reserva"; } ?>
+            </a>
+        </li>
+        <li>
+            <a href="http://localhost/Lab/hotelToDo/views/readHospedagem.php">
+                <?php if ($_SESSION['idPerfilUser'] == 1) { echo "Hospedagem"; } ?>
             </a>
         </li>
         <li>

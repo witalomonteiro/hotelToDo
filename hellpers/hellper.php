@@ -5,6 +5,10 @@ require_once $path . '/models/PerfilUser.php';
 require_once $path . '/models/PerfilUserDAO.php';
 require_once $path . '/models/TipoApto.php';
 require_once $path . '/models/TipoAptoDAO.php';
+require_once $path . '/models/Apto.php';
+require_once $path . '/models/AptoDAO.php';
+require_once $path . '/models/Reserva.php';
+require_once $path . '/models/ReservaDAO.php';
 
 function translateStatus(int $status) {
     if ($status == 1) {
@@ -14,8 +18,8 @@ function translateStatus(int $status) {
     }
     return $translation;
 }
-function translateStatusReserva(int $status) {
-    switch ($status) {
+function translateStatusReserva(int $statusReserva) {
+    switch ($statusReserva) {
         case 1: 
             $translate = "Ativa";
         break;
@@ -23,7 +27,7 @@ function translateStatusReserva(int $status) {
             $translate = "Cancelada";
         break;
         case 2: 
-            $translate = "Checkin Realizado";
+            $translate = "Checkin";
         break;
     }
     return $translate;
@@ -60,6 +64,32 @@ function translateDateForDataBase(string $data) {
 function translateDateForView(string $data) {
     $dateObject = DateTime::createFromFormat('Y-m-d', $data);
     return $dateObject->format('d/m/Y');
+}
+function translateApto(int $idApto) {
+    $apto = new Apto();
+    $aptoDAO = new AptoDAO();
+    $apto = $aptoDAO->readById($idApto);
+    return $apto->numero;
+}
+function translateStatusHospedagem(int $statusHospedagem) {
+    switch ($statusHospedagem) {
+        case 1: 
+            $translate = "Ativa";
+        break;
+        case 0: 
+            $translate = "Cancelada";
+        break;
+        case 2: 
+            $translate = "Checkout";
+        break;
+    }
+    return $translate;
+}
+function translateReservaHospede(string $idReserva) {
+    $reserva = new Reserva();
+    $reservaDAO = new ReservaDAO();
+    $reserva = $reservaDAO->readById($idReserva);
+    return $reserva->nome;
 }
 
 ?>
